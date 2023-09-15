@@ -24,3 +24,9 @@ vim.keymap.set("n", "<C-c>", "<Esc>")
 -- don't let me accidentally press 'Q' ever
 vim.keymap.set("n", "Q", "<nop>")
 
+-- Golang error handling
+vim.keymap.set('n', '<leader>ee', [=[
+    if err != nil {
+        return err
+    }
+]=], { noremap = true, silent = true })
