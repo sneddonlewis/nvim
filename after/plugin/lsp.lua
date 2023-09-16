@@ -7,6 +7,7 @@ lsp.ensure_installed({
 	'eslint',
     'gopls',
 	'rust_analyzer',
+    'clangd',
 })
 
 lsp.setup()

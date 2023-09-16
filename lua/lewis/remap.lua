@@ -24,9 +24,24 @@ vim.keymap.set("n", "<C-c>", "<Esc>")
 -- don't let me accidentally press 'Q' ever
 vim.keymap.set("n", "Q", "<nop>")
 
--- Golang error handling
-vim.keymap.set('n', '<leader>ee', [=[
-    if err != nil {
-        return err
+-- Go return error snippet
+function goReturnErr()
+    local current_line = vim.fn.getline('.')
+    local indent = vim.fn.indent('.')
+    local new_lines = {
+        string.rep(" ", indent) .. "if err != nil {",
+        string.rep(" ", indent + 4) .. "return err",
+        string.rep(" ", indent) .. "}",
     }
-]=], { noremap = true, silent = true })
+
+    -- Append the new lines
+    vim.fn.append('.', new_lines)
+
+    -- Move the cursor to the second line of the inserted code
+    vim.fn.cursor(vim.fn.line('.') + 1, indent + 4)
+end
+
+-- Insert Go return error snippet
+vim.keymap.set('n', '<leader>ee', [[:lua goReturnErr()<CR>]],
+{ noremap = true, silent = true })
+
